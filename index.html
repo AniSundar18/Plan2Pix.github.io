@@ -780,32 +780,13 @@ td.gif {
     <div class="container" style="max-width: 768px; text-align:center;">
         <div class="row">
             <div class="col-md-12">
-                <div id="video-container-1" style="display: block; text-align: center;">
-                    <video height="390px" style="max-width: 100%;" controls autoplay loop muted><source src="./images/animated-teaser-website.mp4" type="video/mp4" ></video>
+                <div style="display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <img src="./gifs/icecream.gif" alt="Plan2Pix ice cream editing example" style="width: 48%; min-width: 300px; max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);">
+                    <img src="./gifs/output_select.gif" alt="Plan2Pix output selection example" style="width: 48%; min-width: 300px; max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);">
                 </div>
-                <div id="video-container-2" style="display: none; text-align: center;">
-                    <video height="390px" style="max-width: 100%;" controls autoplay loop muted><source src="./images/relsim.mp4" type="video/mp4" ></video>
-                </div>
-                <div style="text-align: center; font-size: 80%;">
-                    <text style="color: gray; font-size: 90%;"> Thao: "I created 2 videos, but can't decide which one is better 😭 So I will put both here 😂"</text>[<a href="javascript:void(0);" id="video-tab-1" onclick="showVideo(1)" style="cursor: pointer; font-weight: bold;">video-version-1</a>] [<a href="javascript:void(0);" id="video-tab-2" onclick="showVideo(2)" style="cursor: pointer;">video-version-2</a>]
-                </div>
-                <script>
-                function showVideo(version) {
-                    if (version === 1) {
-                        document.getElementById('video-container-1').style.display = 'block';
-                        document.getElementById('video-container-2').style.display = 'none';
-                        document.getElementById('video-tab-1').style.fontWeight = 'bold';
-                        document.getElementById('video-tab-2').style.fontWeight = 'normal';
-                    } else {
-                        document.getElementById('video-container-1').style.display = 'none';
-                        document.getElementById('video-container-2').style.display = 'block';
-                        document.getElementById('video-tab-1').style.fontWeight = 'normal';
-                        document.getElementById('video-tab-2').style.fontWeight = 'bold';
-                    }
-                }
-                </script>
-                <br><b>TL;DR:</b>
-                    We introduce <span style="background-color: rgb(255, 255, 175);">a new visual similarity notion</span>: <b><font style='color:green'>relational visual similarity</font></b> (relsim), <br>which complements traditional <b><font style='color:red'>attribute similarity</font></b> (e.g., LPIPS, CLIP, DINO).
+                <p style="margin-top: 14px;">
+                    <b>TL;DR:</b>
+                    Plan2Pix learns to <span style="background-color: rgb(255, 255, 175);">plan and orchestrate multi-step image edits</span>, turning open-ended goals into reliable visual transformations.
                 </p>
         </div>
     </div>
@@ -828,23 +809,23 @@ td.gif {
     <div class="container" style="max-width: 768px;">
         <div class="row" style="max-width: 768px;">
             <div class="col-md-12">
-                <h2>📜 Abstract</h2>
+                <h2>📜 Overview</h2>
                 <p style="text-align: justify;">
-                    Modern image editing models produce realistic results, but still struggle with
-                    <span style="background-color: rgb(255, 255, 175);">abstract, multi-step instructions</span>
-                    such as making an advertisement more vegetarian-friendly. Existing agent-based methods can decompose these tasks, but often depend on handcrafted pipelines or teacher imitation, limiting flexibility and decoupling learning from actual editing outcomes.
+                    Image editors are getting very good at making realistic changes. But they still stumble when the request is more like a goal than a single edit:
+                    <span style="background-color: rgb(255, 255, 175);">"make this advertisement more eco-friendly."</span>
+                    That kind of instruction needs planning, judgment, and several coordinated edits, not just one tool call.
                 </p>
                 <p style="text-align: justify;">
-                    We propose an
-                    <span style="background-color: rgb(234,235,254);"><i>experiential framework for long-horizon image editing</i></span>:
-                    a planner generates structured atomic decompositions, while an orchestrator selects the tools and image regions needed to execute each step.
+                    Plan2Pix treats image editing as an experience-driven process. A planner breaks the goal into smaller steps, while an orchestrator decides
+                    <span style="background-color: rgb(234,235,254);">which tools to use and where to apply them</span>
+                    in the image.
                 </p>
                 <p style="text-align: justify;">
-                    A vision-language judge provides outcome-based rewards for instruction adherence and visual quality. The orchestrator is trained to maximize these rewards, and successful trajectories are used to refine the planner.
+                    After each attempt, a vision-language judge scores whether the result follows the instruction and still looks good. Those scores teach the orchestrator what works, and successful edit paths are used to improve the planner.
                 </p>
                 <p style="text-align: justify;">
-                    By tightly coupling planning with reward-driven execution, our approach produces
-                    <b>more coherent and reliable edits</b> than single-step or rule-based multi-step baselines.
+                    The result is a system that can handle longer, more open-ended edits and produce
+                    <b>more coherent, reliable visual transformations</b> than single-step or rule-based editing pipelines.
                 </p>
             </div>
         </div>
