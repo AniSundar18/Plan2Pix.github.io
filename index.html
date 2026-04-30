@@ -607,6 +607,28 @@ td.gif {
     margin: 14px auto 0 auto;
 }
 
+h2 {
+    text-align: center !important;
+}
+
+.brief-description {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 8px 16px 2px 16px;
+    text-align: center;
+}
+
+.brief-description h2 {
+    margin-bottom: 12px;
+}
+
+.brief-description p {
+    margin: 0 auto;
+    color: #272d35;
+    font-size: 122%;
+    line-height: 1.45;
+}
+
 @media only screen and (max-width: 860px) {
     .teaser-gallery {
         grid-template-columns: 1fr;
@@ -837,9 +859,11 @@ td.gif {
         </div>
     </div>
     <hr class="divider" />
-    <div class="container" style="max-width: 900px;">
-        <p class="teaser-copy" style="font-size: 120%; text-align: center;">
-            Plan2Pix tackles abstract, open-ended image editing with an agentic tool-calling system that learns from experience when ground-truth edit trajectories are unavailable.
+    <div class="container brief-description">
+        <h2>Brief Description</h2>
+        <p>
+            We tackle image editing from abstract requests, such as <span style="background-color: rgb(255, 255, 175);">"make this advertisement more eco-friendly."</span>
+            Plan2Pix creates a step-by-step plan for the request and learns how to execute it with the right tools.
         </p>
     </div>
     <hr class="divider" />
@@ -856,25 +880,25 @@ td.gif {
                     <div class="gallery-carousel-wrapper">
                         <div class="gallery-carousel-track" id="galleryCarouselTrack">
                             <div class="gallery-slide">
-                                <img src="./website-images/ecocar.png" alt="Qualitative result 1">
+                                <img src="./website-images/rural.png" alt="Qualitative result 1">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/ecosoap.png" alt="Qualitative result 2">
+                                <img src="./website-images/ecocar.png" alt="Qualitative result 2">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/fitness.png" alt="Qualitative result 3">
+                                <img src="./website-images/ecosoap.png" alt="Qualitative result 3">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/juicebox.png" alt="Qualitative result 4">
+                                <img src="./website-images/fitness.png" alt="Qualitative result 4">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/lunarnoodle.png" alt="Qualitative result 5">
+                                <img src="./website-images/juicebox.png" alt="Qualitative result 5">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/mac.png" alt="Qualitative result 6">
+                                <img src="./website-images/lunarnoodle.png" alt="Qualitative result 6">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/rural.png" alt="Qualitative result 7">
+                                <img src="./website-images/mac.png" alt="Qualitative result 7">
                             </div>
                             <div class="gallery-slide">
                                 <img src="./website-images/savingsmil.png" alt="Qualitative result 8">
