@@ -829,184 +829,67 @@ td.gif {
         </div>
         <div class="buttons" style="margin-bottom: 8px;">
             <center>
-            <a class="btn btn-light" role="button" href="https://arxiv.org/abs/2512.07833">
+            <span class="btn btn-light" role="button" aria-disabled="true">
                 <img src="./images/icon/arXiv.png" alt="arxiv" style="height:23px;">
-                Paper
-            </a>
+                Paper coming soon
+            </span>
             </center>
         </div>
     </div>
     <hr class="divider" />
-    <div class="container" style="max-width: 1080px; text-align:center;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="teaser-gallery" aria-label="Plan2Pix animated editing examples">
-                    <figure class="teaser-card">
-                        <div class="teaser-media">
-                            <img src="./gifs/icecream.gif" alt="Plan2Pix ice cream editing example">
-                        </div>
-                        <figcaption class="teaser-caption">Ice Cream Edit</figcaption>
-                    </figure>
-                    <figure class="teaser-card">
-                        <div class="teaser-media">
-                            <img src="./gifs/output_select.gif" alt="Plan2Pix output selection example">
-                        </div>
-                        <figcaption class="teaser-caption">Output Selection</figcaption>
-                    </figure>
-                    <figure class="teaser-card">
-                        <div class="teaser-media">
-                            <img src="./gifs/womensday.gif" alt="Plan2Pix Women's Day editing example">
-                        </div>
-                        <figcaption class="teaser-caption">Women's Day Edit</figcaption>
-                    </figure>
-                </div>
-                <p class="teaser-copy">
-                    <b>TL;DR:</b>
-                    Plan2Pix learns to <span style="background-color: rgb(255, 255, 175);">plan and orchestrate multi-step image edits</span>, turning open-ended goals into reliable visual transformations.
-                </p>
-        </div>
-    </div>
-    <!-- <hr class="divider" /> -->
-    <!-- <div class="container" style="max-width: 768px;">
-        <div class="row">
-            <div class="col-md-12"> -->
-                <!-- <video width="100%" controls autoplay loop muted>
-                  <source src="./images/animated-teaser-website.mp4" type="video/mp4" >
-                </video> -->
-                <!-- <img src="./images/teaser3.png" alt="relsim" style="width: 110%; height: auto; display: block; margin-left: -5%;">
-        </div>
-        <center>
-            <p style="text-align: justify; width: 100%; font-size: 90%;">
-                <i><span style="background-color: rgb(234,235,254);">Would you say images in <b><font style='color:green'>Group A</font></b> are similar to the <b>Reference Image</b>?</span> Current state-of-the-art image similarity models (e.g.,LPIPS, CLIP) would answer no. These models would say only <b><font style='color:red'>Group B</font></b> are similar to the reference image, as they equate similarity with a high degree of shared perceptual attribute features (i.e., color, shape, semantic class). However, as humans, we would confidently say yes—images in both groups are similar to the reference. While <b><font style='color:red'>Group B</font></b> is similar in perceptual attributes, <b><font style='color:green'>Group A</font></b> is similar in a more abstract, relational sense (e.g., "transformation of {subject} through time", first row). In this paper, we propose to model this missing dimension of visual similarity, or called relational visual similarity, capturing human-like reasoning over relational structures.</i>
-            </p>
-        </center>
-    </div> -->
-    <hr class="divider" />
-    <div class="container" style="max-width: 768px;">
-        <div class="row" style="max-width: 768px;">
-            <div class="col-md-12">
-                <h2>📜 Overview</h2>
-                <p style="text-align: justify;">
-                    Image editors are getting very good at making realistic changes. But they still stumble when the request is more like a goal than a single edit:
-                    <span style="background-color: rgb(255, 255, 175);">"make this advertisement more eco-friendly."</span>
-                    That kind of instruction needs planning, judgment, and several coordinated edits, not just one tool call.
-                </p>
-                <p style="text-align: justify;">
-                    Plan2Pix treats image editing as an experience-driven process. A planner breaks the goal into smaller steps, while an orchestrator decides
-                    <span style="background-color: rgb(234,235,254);">which tools to use and where to apply them</span>
-                    in the image.
-                </p>
-                <p style="text-align: justify;">
-                    After each attempt, a vision-language judge scores whether the result follows the instruction and still looks good. Those scores teach the orchestrator what works, and successful edit paths are used to improve the planner.
-                </p>
-                <p style="text-align: justify;">
-                    The result is a system that can handle longer, more open-ended edits and produce
-                    <b>more coherent, reliable visual transformations</b> than single-step or rule-based editing pipelines.
-                </p>
-            </div>
-        </div>
+    <div class="container" style="max-width: 900px;">
+        <p class="teaser-copy" style="font-size: 120%; text-align: center;">
+            Plan2Pix tackles abstract, open-ended image editing with an agentic tool-calling system that learns from experience when ground-truth edit trajectories are unavailable.
+        </p>
     </div>
     <hr class="divider" />
-    
-    <div style="max-width: 768px; margin: 0 auto;">
-        <h2 style="text-align: left;">⚒️ Usage Example</h2>
-        This is the example usage of the relsim. For more details, please check: <a class="btn btn-light" role="button" href="https://github.com/thaoshibe/relsim">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            github/relsim
-        </a>.
-        <br>
-        <div style="font-size: 90%; color: gray; text-align: left;">This code is tested on <b>Python 3.10</b>: (i) NVIDIA A100 80GB (torch2.5.1+cu124) and (ii) NVIDIA RTX A6000 48GB (torch2.9.1+cu128).
-            Other hardware setup hasn't been tested, but it should still work. Please install pytorch and torchvision according to your machine configuration.</div>
-        <div style="margin-bottom: 20px; text-align: center;">
-            <b>Install</b>
-            <center>
-            <pre style="background-color: #f5f5f5; width: 90%; border-radius: 5px; text-align: left; margin-top: 10px;"><code class="language-bash">pip install relsim</code></pre>
-        </div>
-        </center>
-        <div style="text-align: center;">
-            <b>Quick Run</b>
-            <center>
-            <pre style="background-color: #f5f5f5; width: 90%; border-radius: 5px; text-align: left; margin-top: 10px;"><code class="language-python">from relsim.relsim_score import relsim
-from PIL import Image
-
-model, preprocess = relsim(
-    pretrained=True,
-    checkpoint_dir="thaoshibe/relsim-qwenvl25-lora")
-
-img1 = preprocess(Image.open("image_path_1"))
-img2 = preprocess(Image.open("image_path_2"))
-similarity = model(img1, img2)
-print(f"relsim score: {similarity:.3f}")
-</code></pre>
-            </center>
-        </div>
-    </div>
-    <hr class="divider" style="max-width: 768px;"/>
-    <div id="poster" style="max-width: 768px; margin: 0 auto;">
-        <h2 style="text-align: left;"> 🪧 Poster (soon)</h2>
-        <a href="https://github.com/thaoshibe/cs-conference-posters?tab=readme-ov-file#-posters-posters-posters"><img src="https://raw.githubusercontent.com/thaoshibe/cs-conference-posters/refs/heads/main/imgs/jerry-explain.png" alt="Poster" style="width: 40%; height: auto;"></a>
-        <br>
-        <center><text style="color: gray; font-size: 80%;"><i>Poster will be update here later... Until then, enjoy above CVPR meme :D (created by <a href="https://thaoshibe.github.io/">Thao</a>)</i></text></center>
-    </div>
-    <br>
-    <hr class="divider" style="max-width: 768px;"/>
     <div class="container" style="max-width: 100%;">
         <div class="row">
             <div class="col-md-12">
                 <h2 id="qualitative-gallery" style="text-align: left;">🎨 Qualitative Gallery</h2>
             </div>
-            We present a qualitative gallery of image retrieval results using (i) attribute-based metrics (e.g., LPIPS, CLIP, DINO) and (ii) relational-based metrics (ours: relsim).            <br><br>
+            <div class="col-md-12" style="text-align: center;">
+                Plan2Pix produces coherent visual transformations for abstract editing goals that require multiple coordinated tool calls.
+            </div>
             <div class="col-md-12">
                 <div class="gallery-carousel-container">
                     <div class="gallery-carousel-wrapper">
                         <div class="gallery-carousel-track" id="galleryCarouselTrack">
-                            <!-- Slide 1 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/ecocar.png" alt="Qualitative result 1">
                             </div>
-                            <!-- Slide 2 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/ecosoap.png" alt="Qualitative result 2">
                             </div>
-                            <!-- Slide 3 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/fitness.png" alt="Qualitative result 3">
                             </div>
-                            <!-- Slide 4 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/juicebox.png" alt="Qualitative result 4">
                             </div>
-                            <!-- Slide 5 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/lunarnoodle.png" alt="Qualitative result 5">
                             </div>
-                            <!-- Slide 6 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/mac.png" alt="Qualitative result 6">
                             </div>
-                            <!-- Slide 7 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/rural.png" alt="Qualitative result 7">
                             </div>
-                            <!-- Slide 8 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/savingsmil.png" alt="Qualitative result 8">
                             </div>
-                            <!-- Slide 9 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/spice.png" alt="Qualitative result 9">
                             </div>
-                            <!-- Slide 10 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/tropical.png" alt="Qualitative result 10">
                             </div>
-                            <!-- Slide 11 -->
                             <div class="gallery-slide">
                                 <img src="./website-images/wintercar.png" alt="Qualitative result 11">
                             </div>
                         </div>
                     </div>
-                    <!-- Navigation Buttons -->
                     <button class="gallery-carousel-btn gallery-carousel-btn-prev" onclick="moveGalleryCarousel(-1)">
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="15 18 9 12 15 6"></polyline>
@@ -1025,7 +908,6 @@ print(f"relsim score: {similarity:.3f}")
                             <line x1="3" y1="21" x2="10" y2="14"></line>
                         </svg>
                     </button>
-                    <!-- Indicator Dots -->
                     <div class="gallery-carousel-indicators" id="galleryCarouselIndicators"></div>
                 </div>
                 <div class="gallery-lightbox" id="galleryLightbox" aria-modal="true" role="dialog">
@@ -1037,6 +919,56 @@ print(f"relsim score: {similarity:.3f}")
                     </button>
                     <img id="galleryLightboxImage" src="" alt="">
                 </div>
+            </div>
+        </div>
+    </div>
+    <hr class="divider" />
+    <div class="container" style="max-width: 1080px; text-align:center;">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 style="text-align: left;">How does step-by-step editing look?</h2>
+                <div class="teaser-gallery" aria-label="Plan2Pix animated editing examples">
+                    <figure class="teaser-card">
+                        <div class="teaser-media">
+                            <img src="./gifs/icecream.gif" alt="Plan2Pix ice cream editing example">
+                        </div>
+                    </figure>
+                    <figure class="teaser-card">
+                        <div class="teaser-media">
+                            <img src="./gifs/output_select.gif" alt="Plan2Pix output selection example">
+                        </div>
+                    </figure>
+                    <figure class="teaser-card">
+                        <div class="teaser-media">
+                            <img src="./gifs/womensday.gif" alt="Plan2Pix Women's Day editing example">
+                        </div>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row" style="max-width: 768px;">
+            <div class="col-md-12">
+                <h2>Abstract</h2>
+                <p style="text-align: justify;">
+                    Image editing systems are getting very good at making realistic local changes. However, they still struggle when the request is more like an abstract goal than a single concrete edit:
+                    <span style="background-color: rgb(255, 255, 175);">"make this advertisement more eco-friendly."</span>
+                    Such instructions require planning, judgment, and several coordinated transformations rather than a single model invocation.
+                </p>
+                <p style="text-align: justify;">
+                    We introduce Plan2Pix, an agentic tool-calling system for open-ended image editing. A planner breaks the user goal into executable steps, while an orchestrator decides
+                    <span style="background-color: rgb(234,235,254);">which tools to use and where to apply them</span>
+                    in the image.
+                </p>
+                <p style="text-align: justify;">
+                    Because ground-truth edit trajectories are unavailable for these abstract goals, Plan2Pix learns from experience. After each attempt, a vision-language judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator, and successful edit paths improve the planner.
+                </p>
+                <p style="text-align: justify;">
+                    The result is a system that can handle longer, more open-ended edits and produce
+                    <b>more coherent, reliable visual transformations</b> than single-step or rule-based editing pipelines.
+                </p>
             </div>
         </div>
     </div>
