@@ -830,57 +830,21 @@ td.gif {
             <div class="col-md-12">
                 <h2>📜 Abstract</h2>
                 <p style="text-align: justify;">
-                    Humans do not just see attribute similarity---we also see relational similarity.
-                    This ability to perceive and recognize relational similarity, is arguable by cognitive scientist to be what distinguishes humans from other species.
-                    <text style="background-color: rgb(255, 255, 175);">Yet, all widely used visual similarity metrics today (e.g., LPIPS, CLIP, DINO) focus solely on perceptual attribute similarity</text> and fail to capture the rich, often surprising relational similarities that humans perceive.
-                    <center>
-                        <img id="interactive-peach-earth" src="./images/peach-earth-2/Slide1.png" alt="peach-earth" style="width: 90%; height: auto; cursor: pointer;">
-                    </center>
-                    <center>
-                    <p style="text-align: justify; width: 90%; font-size: 90%;">
-                        <i>An apple is like a peach because both are reddish fruit, but the Earth is also like a peach: its crust, mantle, and core correspond to the peach's skin, flesh, and pit.
-                        <span style="font-size: 80%;">[<a href="javascript:void(0);" id="reveal-all" style="cursor: pointer;">reveal all</a>] [<a href="javascript:void(0);" id="hide-all" style="cursor: pointer;">hide all</a>]</span>
-                        <text style="font-size: 90%; color: gray;">(Above figure is modified from original version created by <b>Chad Edward</b> (thank you Chad!); original image link: <a href="https://dreamtigers.wordpress.com/2011/05/11/plate-tectonic-metaphor-illustrations-cmu/">Plate Tectonic Metaphor Illustrations (CMU)</a>)</text>    
-                        </i>
-                    </p>
-                    </center>
-                    <script>
-                        // Reveal all button - shows Slide4
-                        document.getElementById('reveal-all').addEventListener('click', function() {
-                            document.getElementById('interactive-peach-earth').src = './images/peach-earth-2/Slide4.png';
-                        });
-                        
-                        // Hide all button - shows Slide1
-                        document.getElementById('hide-all').addEventListener('click', function() {
-                            document.getElementById('interactive-peach-earth').src = './images/peach-earth-2/Slide1.png';
-                        });
-                        
-                        // Click on image to show Slide2 or Slide3
-                        document.getElementById('interactive-peach-earth').addEventListener('click', function(e) {
-                            var img = e.target;
-                            var rect = img.getBoundingClientRect();
-                            var x = e.clientX - rect.left;
-                            var clickPosition = x / rect.width;
-                            
-                            if (clickPosition < 0.5) {
-                                // Left half clicked - show Slide2
-                                img.src = './images/peach-earth-2/Slide2.png';
-                            } else {
-                                // Right half clicked - show Slide3
-                                img.src = './images/peach-earth-2/Slide3.png';
-                            }
-                        });
-                    </script>
-                    <p style="text-align: justify;">
-                    <i>How can we go beyond the visible content of an image to capture its relational properties?
-                        How can we bring images with the same relational logic closer together in representation space? 
-                        <!-- Or, how can we bring images with the same relational logic closer together in representation space? -->
-                    </i>
-                    To answer this question,  <text style="background-color: rgb(255, 255, 175);">we first formulate relational image similarity as a measurable problem</text>:
-                    <text style="background-color: rgb(234,235,254);">two images are relationally similar when their internal relations or functions among visual elements correspond, even if their visual attributes differ.</text>
-                    <!-- <br> -->
-                    We then curate 114k image-caption dataset in which the captions are anonymized---describing the underlying relational logic of the scene rather than its surface content. Using this dataset, we finetune a Vision Language Model to measure the relational similarity between images. This model serves as the first step toward connecting images by their underlying relational structure rather than their visible appearance. Our study shows that while relational similarity has a lot of real-world applications, existing image similarity models fail to capture it---revealing a critical gap in visual computing.
-        
+                    Modern image editing models produce realistic results, but still struggle with
+                    <span style="background-color: rgb(255, 255, 175);">abstract, multi-step instructions</span>
+                    such as making an advertisement more vegetarian-friendly. Existing agent-based methods can decompose these tasks, but often depend on handcrafted pipelines or teacher imitation, limiting flexibility and decoupling learning from actual editing outcomes.
+                </p>
+                <p style="text-align: justify;">
+                    We propose an
+                    <span style="background-color: rgb(234,235,254);"><i>experiential framework for long-horizon image editing</i></span>:
+                    a planner generates structured atomic decompositions, while an orchestrator selects the tools and image regions needed to execute each step.
+                </p>
+                <p style="text-align: justify;">
+                    A vision-language judge provides outcome-based rewards for instruction adherence and visual quality. The orchestrator is trained to maximize these rewards, and successful trajectories are used to refine the planner.
+                </p>
+                <p style="text-align: justify;">
+                    By tightly coupling planning with reward-driven execution, our approach produces
+                    <b>more coherent and reliable edits</b> than single-step or rule-based multi-step baselines.
                 </p>
             </div>
         </div>
