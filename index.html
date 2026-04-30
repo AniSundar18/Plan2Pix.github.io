@@ -629,6 +629,103 @@ h2 {
     line-height: 1.45;
 }
 
+.gif-carousel-container {
+    position: relative;
+    max-width: 780px;
+    margin: 10px auto 18px auto;
+    padding: 0 54px;
+}
+
+.gif-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: clamp(430px, 54vw, 650px);
+    border: 1px solid #e4e7eb;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2f6 100%);
+    box-shadow: 0 16px 44px rgba(22, 28, 37, 0.14);
+}
+
+.gif-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.gif-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gif-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.gif-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 50%;
+    background: white;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.14);
+}
+
+.gif-carousel-btn-prev {
+    left: 0;
+}
+
+.gif-carousel-btn-next {
+    right: 0;
+}
+
+.gif-carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.gif-carousel-indicator {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    border-radius: 50%;
+    background: #d8dde3;
+    cursor: pointer;
+}
+
+.gif-carousel-indicator.active {
+    background: #495057;
+}
+
+@media only screen and (max-width: 640px) {
+    .gif-carousel-container {
+        padding: 0 42px;
+    }
+
+    .gif-carousel-wrapper {
+        height: 430px;
+    }
+}
+
 @media only screen and (max-width: 860px) {
     .teaser-gallery {
         grid-template-columns: 1fr;
@@ -730,6 +827,8 @@ h2 {
     // Gallery Carousel - Circular Version
     var currentSlide = 0;
     var totalSlides = 11;
+    var currentGifSlide = 0;
+    var totalGifSlides = 3;
 
     function moveGalleryCarousel(direction) {
         currentSlide += direction;
@@ -790,6 +889,30 @@ h2 {
         document.body.style.overflow = '';
     }
 
+    function moveGifCarousel(direction) {
+        currentGifSlide += direction;
+        if (currentGifSlide < 0) currentGifSlide = totalGifSlides - 1;
+        if (currentGifSlide >= totalGifSlides) currentGifSlide = 0;
+
+        var slides = document.querySelectorAll('.gif-slide');
+        slides.forEach(function(slide, i) {
+            if (i === currentGifSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+
+        var dots = document.querySelectorAll('.gif-carousel-indicator');
+        dots.forEach(function(dot, i) {
+            if (i === currentGifSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
     window.onload = function() {
         var container = document.getElementById('galleryCarouselIndicators');
         for (var i = 0; i < totalSlides; i++) {
@@ -806,6 +929,24 @@ h2 {
             container.appendChild(dot);
         }
         moveGalleryCarousel(0);
+
+        var gifContainer = document.getElementById('gifCarouselIndicators');
+        if (gifContainer) {
+            for (var j = 0; j < totalGifSlides; j++) {
+                var gifDot = document.createElement('button');
+                gifDot.className = 'gif-carousel-indicator';
+                gifDot.setAttribute('aria-label', 'Show editing process ' + (j + 1));
+                if (j === 0) gifDot.classList.add('active');
+                gifDot.onclick = (function(index) {
+                    return function() {
+                        currentGifSlide = index;
+                        moveGifCarousel(0);
+                    };
+                })(j);
+                gifContainer.appendChild(gifDot);
+            }
+            moveGifCarousel(0);
+        }
 
         var lightbox = document.getElementById('galleryLightbox');
         if (lightbox) {
@@ -863,7 +1004,7 @@ h2 {
         <h2>Brief Description</h2>
         <p>
             We tackle image editing from abstract requests, such as <span style="background-color: rgb(255, 255, 175);">"make this advertisement more eco-friendly."</span>
-            Plan2Pix creates a step-by-step plan for the request and learns how to execute it with the right tools.
+            Our system creates a step-by-step plan for the request and learns how to execute it with the right tools.
         </p>
     </div>
     <hr class="divider" />
@@ -873,7 +1014,7 @@ h2 {
                 <h2 id="qualitative-gallery" style="text-align: left;">🎨 Qualitative Gallery</h2>
             </div>
             <div class="col-md-12" style="text-align: center;">
-                Plan2Pix produces coherent visual transformations for abstract editing goals that require multiple coordinated tool calls.
+                Our system produces coherent visual transformations for abstract editing goals that require multiple coordinated tool calls.
             </div>
             <div class="col-md-12">
                 <div class="gallery-carousel-container">
@@ -951,22 +1092,29 @@ h2 {
         <div class="row">
             <div class="col-md-12">
                 <h2 style="text-align: left;">How does step-by-step editing look?</h2>
-                <div class="teaser-gallery" aria-label="Plan2Pix animated editing examples">
-                    <figure class="teaser-card">
-                        <div class="teaser-media">
-                            <img src="./gifs/icecream.gif" alt="Plan2Pix ice cream editing example">
+                <div class="gif-carousel-container" aria-label="Animated step-by-step editing examples">
+                    <div class="gif-carousel-wrapper">
+                        <div class="gif-slide active">
+                            <img src="./gifs/icecream.gif" alt="Ice cream editing process">
                         </div>
-                    </figure>
-                    <figure class="teaser-card">
-                        <div class="teaser-media">
-                            <img src="./gifs/output_select.gif" alt="Plan2Pix output selection example">
+                        <div class="gif-slide">
+                            <img src="./gifs/output_select.gif" alt="Output selection editing process">
                         </div>
-                    </figure>
-                    <figure class="teaser-card">
-                        <div class="teaser-media">
-                            <img src="./gifs/womensday.gif" alt="Plan2Pix Women's Day editing example">
+                        <div class="gif-slide">
+                            <img src="./gifs/womensday.gif" alt="Women's Day editing process">
                         </div>
-                    </figure>
+                    </div>
+                    <button class="gif-carousel-btn gif-carousel-btn-prev" onclick="moveGifCarousel(-1)" aria-label="Previous editing process">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="gif-carousel-btn gif-carousel-btn-next" onclick="moveGifCarousel(1)" aria-label="Next editing process">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="gif-carousel-indicators" id="gifCarouselIndicators"></div>
                 </div>
             </div>
         </div>
@@ -982,12 +1130,12 @@ h2 {
                     Such instructions require planning, judgment, and several coordinated transformations rather than a single model invocation.
                 </p>
                 <p style="text-align: justify;">
-                    We introduce Plan2Pix, an agentic tool-calling system for open-ended image editing. A planner breaks the user goal into executable steps, while an orchestrator decides
+                    We introduce an agentic tool-calling system for open-ended image editing. A planner breaks the user goal into executable steps, while an orchestrator decides
                     <span style="background-color: rgb(234,235,254);">which tools to use and where to apply them</span>
                     in the image.
                 </p>
                 <p style="text-align: justify;">
-                    Because ground-truth edit trajectories are unavailable for these abstract goals, Plan2Pix learns from experience. After each attempt, a vision-language judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator, and successful edit paths improve the planner.
+                    Because ground-truth edit trajectories are unavailable for these abstract goals, our system learns from experience. After each attempt, a vision-language judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator, and successful edit paths improve the planner.
                 </p>
                 <p style="text-align: justify;">
                     The result is a system that can handle longer, more open-ended edits and produce
