@@ -629,6 +629,47 @@ h2 {
     line-height: 1.45;
 }
 
+.key-ideas {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.key-ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+    margin-top: 18px;
+}
+
+.key-idea {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 18px;
+    border: 1px solid #e4e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 14px 36px rgba(22, 28, 37, 0.1);
+}
+
+.key-idea h3 {
+    min-height: 48px;
+    margin: 0 0 14px 0;
+    color: #272d35;
+    font-size: 125%;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.key-idea img {
+    width: 100%;
+    height: auto;
+    margin-top: auto;
+    border-radius: 6px;
+}
+
 .gif-carousel-container {
     position: relative;
     max-width: 780px;
@@ -677,9 +718,9 @@ h2 {
 }
 
 .gif-crop-frame img {
-    width: auto;
+    width: calc(100% + 14px);
     max-width: none;
-    height: calc(100% + 26px);
+    height: 100%;
     object-fit: contain;
 }
 
@@ -736,6 +777,12 @@ h2 {
 
     .gif-carousel-wrapper {
         height: 430px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .key-ideas-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1164,6 +1211,20 @@ h2 {
         </div>
     </div>
     <hr class="divider" style="max-width: 768px;"/>
+    <div class="container key-ideas">
+        <h2>Key Ideas</h2>
+        <div class="key-ideas-grid">
+            <div class="key-idea">
+                <h3>Checklist Driven Plan Generation</h3>
+                <img src="./planner-diag.png" alt="Checklist driven plan generation diagram">
+            </div>
+            <div class="key-idea">
+                <h3>Tool Orchestration From Experience</h3>
+                <img src="./orch-tease.png" alt="Tool orchestration from experience diagram">
+            </div>
+        </div>
+    </div>
+    <hr class="divider" style="max-width: 768px;"/>
     <div class="container" style="max-width: 100%; text-align: left;">
         <h2>🔍 Dataset Viewer</h2>
         <p>This is a data viewer for the datasets used in the paper. Please click on the image to view the corresponding dataset.
@@ -1284,25 +1345,7 @@ h2 {
             <div class="col-md-12">
                 <h2>📚 Citation</h2>
                 <div id='citation' class="citation" style="font-family:monospace;font-size: 12px; text-align: left;">
-                <!-- @inproceedings{plan2pix,<br>
-                      title={From Plans to Pixels: Learning to Plan and Orchestrate for Open-Ended Image Editing},<br>
-                      author={Anirudh Sundara Rajan and Krishna Kumar Singh and Yong Jae Lee},<br>
-                      booktitle={PUT ARXIV LINK HERE},<br>
-                      year={2025},<br>
-                    } -->
-                    @misc{sundararajan2025fromplanstopixels,<br>
-                        title={From Plans to Pixels: Learning to Plan and Orchestrate for Open-Ended Image Editing},<br>
-                        author={Anirudh Sundara Rajan and Krishna Kumar Singh and Yong Jae Lee},<br>
-                        year={2025},<br>
-                        eprint={2512.07833},<br>
-                        archivePrefix={arXiv},<br>
-                        primaryClass={cs.CV},<br>
-                        url={https://arxiv.org/abs/2512.07833},<br>
-                  }
             </div>
-              <button class="copy-button" onclick="copyToClipboard()">
-                <i style="font-size:24px;color: gray;" class="fa">&#xf0c5;</i>
-              </button>
             </div>
         </div>
     </div>
