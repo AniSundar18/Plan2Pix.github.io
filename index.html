@@ -277,7 +277,7 @@ td.gif {
     overflow: visible;
     width: 100%;
     position: relative;
-    height: min(46vw, 500px);
+    height: clamp(360px, 34vw, 560px);
     min-height: 360px;
 }
 
@@ -320,14 +320,13 @@ td.gif {
 
 .gallery-slide img {
     width: min(100%, 1380px);
-    height: clamp(300px, 25vw, 370px);
-    max-height: min(46vw, 500px);
+    height: auto;
+    max-height: clamp(320px, 34vw, 560px);
     border-radius: 8px;
     box-shadow: 0 12px 42px rgba(0, 0, 0, 0.18);
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform: scale(0.48);
-    object-fit: cover;
-    object-position: center;
+    object-fit: contain;
 }
 
 .gallery-slide.active img {
@@ -477,8 +476,8 @@ td.gif {
     }
     
     .gallery-carousel-wrapper {
-        height: 320px;
-        min-height: 320px;
+        height: 300px;
+        min-height: 300px;
     }
     
     .gallery-slide {
@@ -486,9 +485,9 @@ td.gif {
     }
     
     .gallery-slide img {
-        height: 260px;
-        max-height: 320px;
-        object-fit: cover;
+        height: auto;
+        max-height: 300px;
+        object-fit: contain;
     }
     
     .gallery-carousel-btn {
@@ -515,8 +514,8 @@ td.gif {
     }
     
     .gallery-carousel-wrapper {
-        height: 260px;
-        min-height: 260px;
+        height: 240px;
+        min-height: 240px;
     }
     
     .gallery-slide {
@@ -524,9 +523,9 @@ td.gif {
     }
     
     .gallery-slide img {
-        height: 210px;
-        max-height: 260px;
-        object-fit: cover;
+        height: auto;
+        max-height: 240px;
+        object-fit: contain;
     }
 
     .gallery-fullscreen-btn {
