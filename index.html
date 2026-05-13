@@ -672,6 +672,28 @@ h2 {
     text-align: center;
 }
 
+.key-idea-lead {
+    min-height: 0 !important;
+    margin-bottom: 12px !important;
+    color: #272d35 !important;
+    font-size: 104% !important;
+    font-weight: 600;
+    text-align: left !important;
+}
+
+.key-idea-points {
+    margin: 0 0 14px 0;
+    padding-left: 20px;
+    color: #4f5965;
+    font-size: 98%;
+    line-height: 1.35;
+    text-align: left;
+}
+
+.key-idea-points li + li {
+    margin-top: 7px;
+}
+
 .key-idea img {
     width: 100%;
     height: auto;
@@ -777,6 +799,15 @@ h2 {
     font-size: 106%;
     font-weight: 600;
     line-height: 1.45;
+}
+
+.paper-note {
+    max-width: 820px;
+    margin: 24px auto 0 auto;
+    color: #4f5965;
+    font-size: 110%;
+    line-height: 1.45;
+    text-align: center;
 }
 
 .gif-carousel-container {
@@ -1303,7 +1334,7 @@ h2 {
     <div class="container" style="max-width: 768px;">
         <div class="row" style="max-width: 768px;">
             <div class="col-md-12">
-                <h2>Abstract</h2>
+                <h2>Method Overview</h2>
                 <p style="text-align: justify;">
                     Image editing systems are getting very good at making realistic local changes. However, they still struggle when the request is more like an abstract goal than a single concrete edit:
                     <span style="background-color: rgb(255, 255, 175);">"make this advertisement more eco-friendly."</span>
@@ -1315,7 +1346,7 @@ h2 {
                     in the image.
                 </p>
                 <p style="text-align: justify;">
-                    Because ground-truth edit trajectories are unavailable for these abstract goals, our system learns from experience. After each attempt, a vision-language judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator, and successful edit paths improve the planner.
+                    Because ground-truth edit trajectories are unavailable for these abstract goals, our system learns from experience. After each attempt, a multimodal LLM judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator, and successful edit paths improve the planner.
                 </p>
                 <p style="text-align: justify;">
                     The result is a system that can handle longer, more open-ended edits and produce
@@ -1330,28 +1361,38 @@ h2 {
         <div class="key-ideas-grid">
             <div class="key-idea">
                 <h3>Checklist Driven Plan Generation</h3>
-                <p>The planner turns a high-level editing goal into an ordered set of concrete, executable subtasks.</p>
-                <img src="./images/planner-diag.png" alt="Checklist driven plan generation diagram">
+                <p class="key-idea-lead">A checklist specifies what a good plan must cover, without forcing a single correct plan.</p>
+                <ul class="key-idea-points">
+                    <li>Open-ended goals can have many valid plans; for example, "target business travelers with added corporate benefits" can be solved in several ways.</li>
+                    <li>The checklist can come from a human or a strong multimodal LLM, and lists the criteria that the plan should satisfy.</li>
+                    <li>Qwen3-VL-8B generates a plan conditioned on this checklist, and we train the planner to reproduce its own checklist-conditioned output as <a href="https://arxiv.org/abs/2006.12000">self-distillation</a>.</li>
+                </ul>
+                <img src="./images/planner-diag.jpg" alt="Checklist driven plan generation diagram">
             </div>
             <div class="key-idea">
                 <h3>Tool Orchestration From Experience</h3>
-                <p>The orchestrator learns which tool and region to use by comparing real editing outcomes.</p>
-                <img src="./images/orch-tease.png" alt="Tool orchestration from experience diagram">
+                <p class="key-idea-lead">The orchestrator learns which editing tool to trust by actually trying tools and judging their outputs.</p>
+                <ul class="key-idea-points">
+                    <li>No single editing tool is best for every subtask; different tools have different strengths and failure modes.</li>
+                    <li>We compare candidate tools by running them and scoring the resulting edits with a strong multimodal LLM judge.</li>
+                    <li>Naive exploration over full multi-step edits is intractable, motivating the reward approximations below.</li>
+                </ul>
+                <img src="./images/orch-tease.jpg" alt="Tool orchestration from experience diagram">
             </div>
         </div>
     </div>
     <hr class="divider" style="max-width: 768px;"/>
     <div class="container reward-approximations">
-        <h2>Reward Approximations</h2>
+        <h2>Making Tool Exploration Tractable</h2>
         <p class="reward-approximations-intro">
-            Full multi-step editing trajectories are expensive to explore. We make learning tractable by scoring smaller tool-region decisions while preserving the signal needed for long-horizon edits.
+            To train the orchestrator, we need to compare tools by running them and judging the results. Exhaustively doing this over full multi-step edits is intractable, so we use two approximations.
         </p>
         <div class="reward-approximations-grid">
             <div class="reward-approximation">
                 <span class="reward-approximation-label">Approximation 1</span>
                 <h3>Additive Subtask Rewards</h3>
                 <ul>
-                    <li>Given a multi-step plan, one rollout requires calling a tool for each subtask and waiting until all edits finish.</li>
+                    <li>Given a multi-step plan, one rollout requires calling a tool for each subtask and waiting until all edits finish; it makes training intractable.</li>
                     <li>Instead, we use subtask-level supervision: when a tool performs one subtask, we score that subtask immediately.</li>
                     <li>This avoids waiting for the full rollout before assigning feedback to each tool decision.</li>
                 </ul>
@@ -1360,7 +1401,7 @@ h2 {
                     <small>the final edit score is approximated by adding the scores of its subtasks</small>
                 </div>
                 <ul>
-                    <li>This approximation can fail when one subtask changes the meaning, location, or feasibility of a later subtask.</li>
+                    <li>Note that this is an approximation and not always true: later steps can undo progress made in earlier steps, for instance a background change can remove text added earlier.</li>
                 </ul>
             </div>
             <div class="reward-approximation">
@@ -1377,6 +1418,9 @@ h2 {
                 </div>
             </div>
         </div>
+        <p class="paper-note">
+            Further details, experiments, and implementation choices are described in the paper.
+        </p>
     </div>
     <hr class="divider" style="max-width: 768px;"/>
     <div class="container" style="max-width: 768px;">
