@@ -1343,10 +1343,10 @@ h2 {
                 <p style="text-align: justify;">
                     We introduce an agentic tool-calling system for open-ended image editing. A planner breaks the user goal into executable steps, while an orchestrator decides
                     <span style="background-color: rgb(234,235,254);">which tools to use and where to apply them</span>
-                    in the image.
+                    in the image to satisfy each planned step.
                 </p>
                 <p style="text-align: justify;">
-                    Because ground-truth edit trajectories are unavailable for these abstract goals, our system learns from experience. After each attempt, a multimodal LLM judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator, and successful edit paths improve the planner.
+                    Because ground-truth edit trajectories are unavailable for these abstract goals, our system learns from experience. After each attempt, a multimodal LLM judge scores whether the result follows the instruction and remains visually plausible; those scores improve the orchestrator. Naive training is intractable, so we introduce reward approximations that make learning practical.
                 </p>
                 <p style="text-align: justify;">
                     The result is a system that can handle longer, more open-ended edits and produce
