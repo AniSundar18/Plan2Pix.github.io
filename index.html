@@ -767,6 +767,18 @@ h2 {
     font-weight: 500;
 }
 
+.reward-conjecture {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-left: 3px solid #155d92;
+    border-radius: 6px;
+    background: #f0f6ff;
+    color: #272d35;
+    font-size: 106%;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
 .gif-carousel-container {
     position: relative;
     max-width: 780px;
@@ -1339,28 +1351,30 @@ h2 {
                 <span class="reward-approximation-label">Approximation 1</span>
                 <h3>Additive Subtask Rewards</h3>
                 <ul>
-                    <li>A complex request becomes a short checklist: change the text, replace an object, adjust the background.</li>
-                    <li>Testing one full checklist is slow because each edit must finish before the next one can start.</li>
-                    <li>So we score each edit on its own: did the text change correctly, did the new object look natural, did the background update work?</li>
+                    <li>Given a multi-step plan, one rollout requires calling a tool for each subtask and waiting until all edits finish.</li>
+                    <li>Instead, we use subtask-level supervision: when a tool performs one subtask, we score that subtask immediately.</li>
+                    <li>This avoids waiting for the full rollout before assigning feedback to each tool decision.</li>
                 </ul>
                 <div class="reward-equation">
-                    final quality &asymp; text edit + object edit + background edit
-                    <small>we approximate a hard multi-edit score using simpler per-edit scores</small>
+                    total reward &asymp; sum of subtask rewards
+                    <small>the final edit score is approximated by adding the scores of its subtasks</small>
                 </div>
                 <ul>
-                    <li>This is an approximation: it can fail when one edit changes what a later edit should do or where it should happen.</li>
+                    <li>This approximation can fail when one subtask changes the meaning, location, or feasibility of a later subtask.</li>
                 </ul>
             </div>
             <div class="reward-approximation">
                 <span class="reward-approximation-label">Approximation 2</span>
                 <h3>Original-Image Criterion</h3>
                 <ul>
-                    <li>Even if we score edits one by one, a later edit usually requires recreating everything that came before it.</li>
-                    <li>For a checklist like "change the sign, replace the car, brighten the sky," the number of possible edit sequences grows very quickly.</li>
-                    <li>In our data, each checklist item usually points back to the original photo, not to something invented by a previous edit.</li>
-                    <li>The items also tend to affect separate parts of the image: text, objects, people, or background.</li>
-                    <li>We therefore test each candidate edit directly on the original image and use that score for learning.</li>
+                    <li>Subtask-level rewards reduce the feedback problem, but they do not fully remove the cost of evaluation.</li>
+                    <li>To score a later subtask exactly, we would still need to simulate all earlier edits that produced its input image.</li>
+                    <li>We observe that edit plans usually refer to objects or regions already present in the original image.</li>
+                    <li>These edits also tend to target different semantic concepts or spatial regions, except for global changes such as background or color palette edits.</li>
                 </ul>
+                <div class="reward-conjecture">
+                    Conjecture: a tool that performs a subtask well on the original image will also perform well when the same subtask appears inside a sequential edit.
+                </div>
             </div>
         </div>
     </div>
