@@ -886,16 +886,19 @@ h2 {
 
     // Gallery Carousel - Circular Version
     var currentSlide = 0;
-    var totalSlides = 11;
+    var totalSlides = 0;
     var currentGifSlide = 0;
     var totalGifSlides = 3;
 
     function moveGalleryCarousel(direction) {
+        var slides = document.querySelectorAll('.gallery-slide');
+        totalSlides = slides.length;
+        if (totalSlides === 0) return;
+
         currentSlide += direction;
         if (currentSlide < 0) currentSlide = totalSlides - 1;
         if (currentSlide >= totalSlides) currentSlide = 0;
         
-        var slides = document.querySelectorAll('.gallery-slide');
         var prevIndex = currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
         var nextIndex = currentSlide === totalSlides - 1 ? 0 : currentSlide + 1;
         
@@ -975,6 +978,7 @@ h2 {
 
     window.onload = function() {
         var container = document.getElementById('galleryCarouselIndicators');
+        totalSlides = document.querySelectorAll('.gallery-slide').length;
         for (var i = 0; i < totalSlides; i++) {
             var dot = document.createElement('div');
             dot.className = 'gallery-carousel-indicator';
@@ -1084,22 +1088,22 @@ h2 {
                                 <img src="./website-images/rural.png" alt="Qualitative result 1">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/ecocar.png" alt="Qualitative result 2">
+                                <img src="./website-images/digilocker.png" alt="Qualitative result 2">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/ecosoap.png" alt="Qualitative result 3">
+                                <img src="./website-images/ind_day.png" alt="Qualitative result 3">
                             </div>
                             <div class="gallery-slide">
                                 <img src="./website-images/fitness.png" alt="Qualitative result 4">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/juicebox.png" alt="Qualitative result 5">
+                                <img src="./website-images/oyo.png.jpg" alt="Qualitative result 5">
                             </div>
                             <div class="gallery-slide">
                                 <img src="./website-images/lunarnoodle.png" alt="Qualitative result 6">
                             </div>
                             <div class="gallery-slide">
-                                <img src="./website-images/mac.png" alt="Qualitative result 7">
+                                <img src="./website-images/valentines.png" alt="Qualitative result 7">
                             </div>
                             <div class="gallery-slide">
                                 <img src="./website-images/savingsmil.png" alt="Qualitative result 8">
@@ -1109,9 +1113,6 @@ h2 {
                             </div>
                             <div class="gallery-slide">
                                 <img src="./website-images/tropical.png" alt="Qualitative result 10">
-                            </div>
-                            <div class="gallery-slide">
-                                <img src="./website-images/wintercar.png" alt="Qualitative result 11">
                             </div>
                         </div>
                     </div>
