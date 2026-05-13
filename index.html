@@ -735,6 +735,30 @@ h2 {
     line-height: 1.45;
 }
 
+.reward-approximation ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #4f5965;
+    font-size: 105%;
+    line-height: 1.45;
+}
+
+.reward-approximation li + li {
+    margin-top: 8px;
+}
+
+.reward-equation {
+    margin: 14px 0;
+    padding: 12px 14px;
+    border-left: 3px solid #155d92;
+    border-radius: 6px;
+    background: #f0f6ff;
+    color: #272d35;
+    font-size: 112%;
+    font-weight: 600;
+    text-align: center;
+}
+
 .gif-carousel-container {
     position: relative;
     max-width: 780px;
@@ -1306,134 +1330,30 @@ h2 {
             <div class="reward-approximation">
                 <span class="reward-approximation-label">Approximation 1</span>
                 <h3>Additive Subtask Rewards</h3>
-                <p>
-                    Instead of judging every possible full trajectory, we approximate the final reward as the sum of rewards for individual subtasks, such as changing text, replacing an object, or updating the background.
-                </p>
+                <ul>
+                    <li>Full rollouts are slow: pick a tool, wait for execution, repeat for every plan step.</li>
+                    <li>Instead, judge each tool call by the quality of its intermediate edit.</li>
+                </ul>
+                <div class="reward-equation">
+                    R(&tau;) &asymp; &Sigma;<sub>t=1</sub><sup>T</sup> r<sub>t</sub>(I<sub>t-1</sub>, a<sub>t</sub>, I<sub>t</sub>)
+                </div>
+                <ul>
+                    <li>This additive view can fail when one edit changes the meaning, location, or feasibility of a later edit.</li>
+                </ul>
             </div>
             <div class="reward-approximation">
                 <span class="reward-approximation-label">Approximation 2</span>
-                <h3>Original-Image Evaluation</h3>
-                <p>
-                    We evaluate candidate tool-region edits on the original image, rather than every intermediate state, allowing rewards to be precomputed for many choices before training the orchestrator.
-                </p>
+                <h3>Original-Image Criterion</h3>
+                <ul>
+                    <li>Even with additive rewards, scoring the nth tool still requires running n sequential edits.</li>
+                    <li>The search space is exponential: roughly |tools|<sup>T</sup> choices for a T-step plan, before regions.</li>
+                    <li>In practice, plans usually refer back to the original image, not to objects introduced and modified later.</li>
+                    <li>The edits are also mostly semantically and spatially disentangled.</li>
+                    <li>We therefore learn each subtask reward from the edit applied directly to the original image.</li>
+                </ul>
             </div>
         </div>
     </div>
-    <hr class="divider" style="max-width: 768px;"/>
-    <div class="container" style="max-width: 100%; text-align: left;">
-        <h2>🔍 Dataset Viewer</h2>
-        <p>This is a data viewer for the datasets used in the paper. Please click on the image to view the corresponding dataset.
-            You can also see the dataset on HuggingFace.
-        </p>
-        <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
-            <table style="text-align:center;">
-                <tr>
-                    <td>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <img src="./data_viewer/A.png" style="height: 300px;">
-                    </td>
-                    <td><p><b><a style="font-size: 120%;" href="./data_viewer/seed_groups.html">Seed Groups (Live View)</a></b>
-                        <br> <i>500+ {Image Group, Anonymous Caption}</i>
-                        <br> <a class="btn btn-light" role="button" href="https://huggingface.co/datasets/thaoshibe/seed-groups">
-                            or <img src="./images/icon/huggingface-color.png" alt="HuggingFace" style="width:26px;">
-                            datasets/seed-groups
-                        </a>
-                    </p>
-                        <a href="./data_viewer/seed_groups.html"><img src="./data_viewer/B.png" style="height: 300px;"></a>
-                        
-                    </td>
-                    <td><p><b><a style="font-size: 120%;" href="./data_viewer/anonymous_captions.html">Anonymous Captions (Live View)</a></b>
-                        <br> <i>114k+ {Image, Anonymous Caption}</i>
-                        <br> <a class="btn btn-light" role="button" href="https://huggingface.co/datasets/thaoshibe/anonymous-captions-114k">
-                            or <img src="./images/icon/huggingface-color.png" alt="HuggingFace" style="width:26px;">
-                            datasets/anonymous-captions-114k
-                        </a>
-                    </p>
-                        <a href="./data_viewer/anonymous_captions.html"><img src="./data_viewer/C.png" style="height: 300px;"></a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    <hr class="divider" style="max-width: 768px;"/>
-    <div class="container" style="max-width: 100%; text-align: left;">
-        <h2 id="didyouknow">❓ Did You Know?</h2> 
-    
-        Relational similarity isn't new!
-        <br>
-        In 1997, in the highly influential paper: <a href="https://www.qrg.northwestern.edu/papers/Files/Gentner_Markman_AmPsy_Jan97.pdf">Structure Mapping in Analogy and Similarity</a> published in American Psychologist,
-        <text style="background-color: rgb(255, 255, 175);"><a href="https://scholar.google.com/citations?user=JQ2VugwAAAAJ&hl=en">Prof. Dedre Gentner</a> and <a href="https://scholar.google.com/citations?user=X3ai91IAAAAJ&hl=en">Prof. Arthur B. Markman</a> proposed a hand-drawn version of Similarity Space</text>, with two axes: <i><text style="background-color: rgb(234,235,254);">x-axis: attributes shared, and y-axis: relations shared.</text></i>
-
-        <div style="text-align: center;">
-            <div style="position: relative; display: inline-block;">
-                <img id="blurred-theory-img" src="./images/similarity_space_theory.png" style="width: 200px; height: auto; filter: blur(8px); cursor: pointer; transition: all 0.3s ease;" onclick="toggleBlur('theory')">
-                <div id="reveal-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; pointer-events: none; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
-                    Click to reveal
-                </div>
-            </div>
-            <p style="text-align: center; font-size: 90%; color: gray;">
-                <i>Figure cropped from the original paper.</i>
-            </p>
-        </div>
-    
-        Believe it or not, we spent months <i>struggling</i> to recreate this theoretical figure <i>(yes we did!)</i>,
-        ... and ... after ... a lot of effort ... to ..... pull ..... things .....together .......... We finally made it!
-        <br>
-    <div id="xyplot-container" style="width: 100vw; margin-left: calc(-50vw + 50%); text-align: center;">
-        <div style="position: relative; display: inline-block;">
-            <img id="blurred-xyplot-img" src="./images/xyplot.png" style="width: 400px; height: auto; filter: blur(8px); cursor: pointer; transition: all 0.3s ease;" onclick="toggleBlur('xyplot')">
-            <div id="reveal-text-xyplot" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; pointer-events: none; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
-                Click to reveal
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function toggleBlur(type) {
-            const configs = {
-                'theory': {
-                    imgId: 'blurred-theory-img',
-                    textId: 'reveal-text',
-                    smallWidth: '200px',
-                    largeWidth: '450px'
-                },
-                'xyplot': {
-                    imgId: 'blurred-xyplot-img',
-                    textId: 'reveal-text-xyplot',
-                    smallWidth: '400px',
-                    largeWidth: '1200px'
-                }
-            };
-            
-            const config = configs[type];
-            const img = document.getElementById(config.imgId);
-            const text = document.getElementById(config.textId);
-            
-            // Check current state based on blur filter
-            const isBlurred = img.style.filter === 'blur(8px)';
-            
-            if (isBlurred) {
-                // Reveal
-                img.style.filter = 'blur(0px)';
-                img.style.width = config.largeWidth;
-                text.style.display = 'none';
-            } else {
-                // Blur again
-                img.style.filter = 'blur(8px)';
-                img.style.width = config.smallWidth;
-                text.style.display = 'block';
-            }
-        }
-    </script>
-        After almost 30 years, thanks to relsim, <text style="background-color: rgb(234,235,254);">the theory can now be brought to life!</text>
-        <br>  
-        Cool, isn’t it?? (˵ •̀ ᴗ - ˵ ) ✧
-    </div>
-    
     <hr class="divider" style="max-width: 768px;"/>
     <div class="container" style="max-width: 768px;">
         <div class="row">
